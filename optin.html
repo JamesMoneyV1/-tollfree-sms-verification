@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SMS Appointment Reminder Opt‑In</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2em auto; padding: 0 1em; }
+    label { display: block; margin: 1em 0; }
+    button[disabled] { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+  <h1>Opt‑In for SMS Appointment Reminders</h1>
+
+  <form id="optinForm">
+    <label>
+      Your Name  
+      <input type="text" name="name" required>
+    </label>
+
+    <label>
+      Mobile Number  
+      <input type="tel" name="phone"
+             placeholder="+11234567890"
+             pattern="^\+\d{11,15}$"
+             required>
+    </label>
+
+    <label>
+      <input type="checkbox" id="consent" name="consent" required>
+      I consent to receive SMS appointment reminders from Jake Monson.  
+      Reply STOP at any time to unsubscribe.
+    </label>
+
+    <button type="submit" disabled>Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('optinForm');
+    const consent = document.getElementById('consent');
+    const submit = form.querySelector('button');
+
+    // only enable submit once they check consent
+    consent.addEventListener('change', () => {
+      submit.disabled = !consent.checked;
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // TODO: hook this up to your backend or a Google Form endpoint.
+      // Example: fetch('/your-api/optin', { method:'POST', body: new FormData(form) })
+      alert('Thanks! You are now opted in for appointment reminder texts.');
+      form.reset();
+      submit.disabled = true;
+    });
+  </script>
+
+</body>
+</html>
